@@ -1,0 +1,125 @@
+!!ARBfp1.0
+TEMP tempvar0
+MOV tempvar0, 0
+TEMP tempvar1
+TEMP tempvar2
+TEMP tempvar3
+MOV tempvar3,{1,1,1,1}
+ADD tempvar1,tempvar3,-1
+MOV tempvar2, -tempvar3
+MOV tempvar3,fragment.color.x
+TEMP tempvar4
+MOV tempvar4,fragment.position.x
+MUL tempvar3, tempvar3, tempvar4
+RCP tempvar4, tempvar4.x
+MUL tempvar3, tempvar3, tempvar4
+POW tempvar3,tempvar3.x,tempvar4.x
+MUL tempvar3, tempvar3, tempvar4
+ADD tempvar3,tempvar3,-1
+ADD tempvar4,tempvar4,-1
+MUL tempvar3, tempvar3, tempvar4
+ADD tempvar3,tempvar3,-1
+MOV tempvar3,-tempvar3
+MOV tempvar4,-tempvar4
+ADD tempvar3,tempvar3,tempvar4
+ABS tempvar3,tempvar3
+ADD tempvar3,tempvar3,-1
+ABS tempvar3,tempvar3
+MOV tempvar4,-tempvar4
+ADD tempvar3,tempvar3,tempvar4
+ABS tempvar3,tempvar3
+SLT tempvar3,tempvar3,tempvar4
+SGE tempvar3,tempvar4,tempvar3
+SLT tempvar3,tempvar4,tempvar3
+SGE tempvar3,tempvar3,tempvar4
+CMP tempvar3,tempvar1,tempvar0.x,tempvar3
+MOV tempvar0.x,tempvar3
+MOV tempvar4,fragment.color.y
+TEMP tempvar5
+MOV tempvar5,fragment.position.y
+MUL tempvar4, tempvar4, tempvar5
+RCP tempvar5, tempvar5.x
+MUL tempvar4, tempvar4, tempvar5
+POW tempvar4,tempvar4.x,tempvar5.x
+MUL tempvar4, tempvar4, tempvar5
+ADD tempvar4,tempvar4,-1
+ADD tempvar5,tempvar5,-1
+MUL tempvar4, tempvar4, tempvar5
+ADD tempvar4,tempvar4,-1
+MOV tempvar4,-tempvar4
+MOV tempvar5,-tempvar5
+ADD tempvar4,tempvar4,tempvar5
+ABS tempvar4,tempvar4
+ADD tempvar4,tempvar4,-1
+ABS tempvar4,tempvar4
+MOV tempvar5,-tempvar5
+ADD tempvar4,tempvar4,tempvar5
+ABS tempvar4,tempvar4
+SLT tempvar4,tempvar4,tempvar5
+SGE tempvar4,tempvar5,tempvar4
+SLT tempvar4,tempvar5,tempvar4
+SGE tempvar4,tempvar4,tempvar5
+CMP tempvar4,tempvar1,tempvar0.y,tempvar4
+MOV tempvar0.y,tempvar4
+MOV tempvar5,fragment.color.z
+CMP tempvar5,tempvar1,tempvar0.z,tempvar5
+MOV tempvar0.z,tempvar5
+TEMP tempvar6
+MOV tempvar6,fragment.color.w
+TEMP tempvar7
+MOV tempvar7,fragment.position.x
+MUL tempvar6, tempvar6, tempvar7
+RCP tempvar7, tempvar7.x
+MUL tempvar6, tempvar6, tempvar7
+POW tempvar6,tempvar6.x,tempvar7.x
+MUL tempvar6, tempvar6, tempvar7
+ADD tempvar6,tempvar6,-1
+ADD tempvar7,tempvar7,-1
+MUL tempvar6, tempvar6, tempvar7
+ADD tempvar6,tempvar6,-1
+MOV tempvar6,-tempvar6
+MOV tempvar7,-tempvar7
+ADD tempvar6,tempvar6,tempvar7
+ABS tempvar6,tempvar6
+ADD tempvar6,tempvar6,-1
+ABS tempvar6,tempvar6
+MOV tempvar7,-tempvar7
+ADD tempvar6,tempvar6,tempvar7
+ABS tempvar6,tempvar6
+SLT tempvar6,tempvar6,tempvar7
+SGE tempvar6,tempvar7,tempvar6
+SLT tempvar6,tempvar7,tempvar6
+SGE tempvar6,tempvar6,tempvar7
+MOV tempvar7,fragment.position.y
+MUL tempvar6, tempvar6, tempvar7
+RCP tempvar7, tempvar7.x
+MUL tempvar6, tempvar6, tempvar7
+POW tempvar6,tempvar6.x,tempvar7.x
+MUL tempvar6, tempvar6, tempvar7
+ADD tempvar6,tempvar6,-1
+ADD tempvar7,tempvar7,-1
+MUL tempvar6, tempvar6, tempvar7
+ADD tempvar6,tempvar6,-1
+MOV tempvar6,-tempvar6
+MOV tempvar7,-tempvar7
+ADD tempvar6,tempvar6,tempvar7
+ABS tempvar6,tempvar6
+ADD tempvar6,tempvar6,-1
+ABS tempvar6,tempvar6
+MOV tempvar7,-tempvar7
+ADD tempvar6,tempvar6,tempvar7
+ABS tempvar6,tempvar6
+SLT tempvar6,tempvar6,tempvar7
+SGE tempvar6,tempvar7,tempvar6
+SLT tempvar6,tempvar7,tempvar6
+SGE tempvar6,tempvar6,tempvar7
+CMP tempvar6,tempvar1,tempvar0.w,tempvar6
+MOV tempvar0.w,tempvar6
+MOV tempvar7,fragment.color
+CMP tempvar7,tempvar2,tempvar0,tempvar7
+MOV tempvar0,tempvar7
+TEMP tempvar8
+MOV tempvar8,tempvar0
+CMP tempvar8,tempvar2,result.color,tempvar8
+MOV result.color,tempvar8
+END

@@ -1,0 +1,28 @@
+CSC467 Lab3 Report
+
+Jixiong Deng 1001304741
+Chenyu Wang 1001609226
+ 
+In this lab, we implemented AST construction and semantic checker.
+There are three main steps in this lab. First is construction of AST, second is construction of Semantic Checker, and third is construction of Symbol Trees.
+
+1.Construction of AST:
+The AST is based on context-free grammar which we've finished in Lab2. To convert grammar into AST, we implemented the function, "node *ast_allocate(node_kind kind, ...);" which passed the "node_kind", and identifies different grammar rules, as the first argument and "non-node pointers", which indicates position of subtrees, as following arguments. To print out existing AST, we constructed a recursive helper function, "void ast_print_helper(node *cur, int depth);". The first argument is an AST node pointer and second argument is the depth of this AST node. We controled the indentation of brackets, "{}", via the depth. The recursive function has the the form like: 
+Recurrsion = Indentaion + '{' + 'this node' + Recursions + Indentation + '}';
+This function make sure all of the expansions in the same depth have the same indentaiontion.
+To free AST, we used post-travese to make sure all "free" function executes from bottom to up.
+
+2.Construction of Semantic Checker:
+Actually, Semantic Checker relates to both AST and Symbol Tree. To modulize all of the three steps. We got some APIs, openscope, closescope, is_in_main, is_in_tree, tree_insert, from Symbol Tree structure, which will be introduced by next step. The semantic checker recursion has the form as following:
+Recursion = Open_Scope(when reached scope_node) + Recursion + Semantic Checker;
+First of all, we have to go through AST from root to leaves. During this step, as long as we reached a scope_node, we start a new scope in symbol table. The Semantic Checker should never be executed until reached leaf nodes, like variables, identifiers, literals, etc. This design make sure the Semantic Checker works bottom up. 
+Semantic Checker checks all of the problems mentioned in lab handout like "predefined names", "predeclarations", "type mismatch", "initializations" and etc. 
+More importantly, since Semantic Checker work bottom up, it will ensure that the child is already loaded with semantic information  
+The Semantic Checker never stop until it reached the root. Also we allow types to be any when error occurs. This design make sure Semantic Checker can report errors as many as possible. 
+Symbol table is used by the semantic checker to implement various declaration and assignment issue, which will be introduced in the next section
+
+3.Symbol Tree
+The symbol table has mainly four types of operations: enter scope, exit scope, search, and insert. Enter scope and exit scope helps the semantic check to organize the names to different groups. insert helps storing symbols, and search helps to retrive symbols within a certain scope. All these functionalities helps the semantic check to ensure that no two symbols in the same scope can be the same. the structure of the symbol table is a tree, with two type of branches: parent and content. parent points to the outer scope and content points to the symbols inside the scope. when we search for symbol, we simply go through the singly linked list of content. If not found, we can go back to outer scopes to search for symbols(e.g. assignment node) if needed. The symbol table also helps with type checking(e.g. binary node with one or more variable expression), const checking(e.g. assignment with a variable as expression), initialization checking(e.g. when using a variable, is it initializaed?), etc. For initialization checking, vector entries can be considered as seperate variables, hence we decide to put an array of size 4 to represent if each of the 4 entries is initialized. We have tested the seperately and have proved its correctness.
+
+Challenges:
+The most significant challenge we have faced is the implementation and test of semantic checker. It took us a while to come up with the scoping and bottom up semantic checker implementation. The semantic checker has many specific rules and is extremely hard to debug. We have to create specific test cases to each of the rules and see if there is error occured. For example, we noticed that the binary and unary operation sometimes are not checked, so we modified the code and checked the production of semantic checker. It turned out that in the production rule statements -> statements statment, we added an extra 's' and made it statments -> staements statements, which caused a lot of mysterious bugs. 
